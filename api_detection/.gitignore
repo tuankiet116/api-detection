@@ -1,0 +1,5 @@
+.vscode
+.idea
+api_detection/__pycache__
+face_detector/__pycache__
+/__pycache__
