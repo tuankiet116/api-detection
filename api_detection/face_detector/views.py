@@ -2,7 +2,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 import urllib.request as urllib
-from .services.detector import haarcascade_frontalface_default, dlib, convertFromBytes
+from .services.detector import haarcascade_frontalface_default, dlibDetector, convertFromBytes
 
 @csrf_exempt
 def detect(request):
@@ -20,7 +20,7 @@ def detect(request):
         mod = request.POST.get('algorithm', 'dlib')
         data_image = convertFromBytes(data_image)
         if mod == 'dlib':
-            rects = dlib(data_image)
+            rects = dlibDetector(data_image)
         else:
             rects = haarcascade_frontalface_default(data_image)
         response.update({"num_faces": len(rects), "faces": rects, "success": True})
